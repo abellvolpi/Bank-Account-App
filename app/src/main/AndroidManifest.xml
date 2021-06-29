@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BankAccountApp">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MenuActivity"></activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="Tittle"
+            android:theme="@style/Theme.BankAccountApp.NoActionBar" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

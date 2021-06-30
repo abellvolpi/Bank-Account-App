@@ -2,18 +2,19 @@ package com.example.bankaccountapp.contas
 
 import java.util.*
 
-class CurrentAccount(accountNumber: Int, ownersName: String, password: String) : Account(accountNumber, ownersName, password) {
+class CurrentAccount(
+    accountNumber: Int,
+    ownersName: String,
+    password: String,
+    creationDate: Date,
+    balance: Long = 0L,
+) : Account(accountNumber, ownersName, password, creationDate, balance) {
 
-    private var currency : Currency
 
-    override fun withdraw(value: Long, currency: Currency): Long {
+    override fun withdraw(value: Long): Long {
+
+        return balance
 
     }
-
-//    open fun withdraw(value: Long): Long {
-//        saldo -= value
-//        return saldo
-//    }
-
 
 }

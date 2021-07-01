@@ -42,21 +42,21 @@ class LoginActivity : AppCompatActivity() {
         fileWriter.close()
 
 
-//        buttonLogin.setOnClickListener {
-//            changeState(true)
-//            delay {
-//                efetuaLogin(username.text.toString(), password.text.toString())?.let {
-//                    val intencao = Intent(this, MenuActivity::class.java).apply {
-//                    }
-//                    startActivity(intencao)
-//                    finish()
-//                } ?: run {
-//                    loginInvalido()
-//                    changeState(false)
-//
-//                }
-//            }
-//        }
+        buttonLogin.setOnClickListener {
+            changeState(true)
+            delay {
+                efetuaLogin(username.text.toString(), password.text.toString())?.let {
+                    val intencao = Intent(this, MenuActivity::class.java).apply {
+                    }
+                    startActivity(intencao)
+                    finish()
+                } ?: run {
+                    loginInvalido()
+                    changeState(false)
+
+                }
+            }
+        }
 
         buttonNewAccount.setOnClickListener {
             val intencao = Intent(this, NewAccount::class.java).apply {
@@ -99,15 +99,15 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-//    private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
-////        val contas = Csv.lerCsv(this)
-//        contas.forEach {
-//            if (it.ownersName == user_informed && it.password == password_informed) {
-//                return it
-//            }
-//        }
-//        return null
-//    }
+    private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
+        val contas = Csv.lerCsv(this)
+        contas.forEach {
+            if (it.ownersName == user_informed && it.password == password_informed) {
+                return it
+            }
+        }
+        return null
+    }
 
 
 }

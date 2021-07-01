@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
 import com.example.bankaccountapp.utils.Csv
+import com.example.bankaccountapp.utils.toSHA256
 import kotlinx.coroutines.delay
 import java.io.File
 import java.io.FileWriter
@@ -38,15 +39,15 @@ class LoginActivity : AppCompatActivity() {
 
         val file = File(cacheDir, "accounts.csv")
         val fileWriter = FileWriter(file, true)
-        fileWriter.append("19;joao;senha;30/06/2021;0")
         fileWriter.close()
 
 
         buttonLogin.setOnClickListener {
             changeState(true)
             delay {
-                efetuaLogin(username.text.toString(), password.text.toString())?.let {
+                efetuaLogin(username.text.toString(), password.text.toString().toSHA256())?.let {
                     val intencao = Intent(this, MenuActivity::class.java).apply {
+//                        putExtra(it)
                     }
                     startActivity(intencao)
                     finish()

@@ -20,25 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var contas: ArrayList<Account>? = null
-        var contacorrente = CurrentAccount(19, "joao", "senha", Calendar.getInstance().time, 0)
-        contas?.add(contacorrente)
-        println(contacorrente)
-
-        fun criarCsv(contas: ArrayList<Account>) {
-            val file = File(cacheDir, "accounts.csv")
-            val printWriter = file.printWriter()
-            contas?.forEach { it ->
-                printWriter.println(it.linhaCsv())
-            }
-            printWriter.flush()
-        }
-
-        if (contas != null) {
-            criarCsv(contas)
-        }
-
-
     }
+
 }
 

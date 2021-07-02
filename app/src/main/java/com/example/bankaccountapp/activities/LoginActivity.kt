@@ -13,10 +13,13 @@ import androidx.appcompat.app.AlertDialog
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
 import com.example.bankaccountapp.utils.Csv
+import com.example.bankaccountapp.utils.MainApplication
 import com.example.bankaccountapp.utils.toSHA256
 import kotlinx.coroutines.delay
 import java.io.File
 import java.io.FileWriter
+
+const val ACCOUNT = "ACCOUNT"
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,9 +31,13 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_login)
+
+
         username = findViewById(R.id.username_field)
         password = findViewById(R.id.password_field)
         buttonLogin = findViewById(R.id.buttonLogin)
@@ -47,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             delay {
                 efetuaLogin(username.text.toString(), password.text.toString().toSHA256())?.let {
                     val intencao = Intent(this, MenuActivity::class.java).apply {
-//                        putExtra(it)
+                        putExtra(ACCOUNT,it)
                     }
                     startActivity(intencao)
                     finish()
@@ -101,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
-        val contas = Csv.lerCsv(this)
+        val contas = Csv.lerCsv()
         contas.forEach {
             if (it.ownersName == user_informed && it.password == password_informed) {
                 return it

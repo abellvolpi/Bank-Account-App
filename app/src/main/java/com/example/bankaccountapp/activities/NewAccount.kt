@@ -1,5 +1,6 @@
 package com.example.bankaccountapp.activities
 
+import android.accounts.Account
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,8 @@ import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.RadioButton
 import com.example.bankaccountapp.R
+import com.example.bankaccountapp.contas.CurrentAccount
+import com.example.bankaccountapp.contas.SavingsAccount
 import com.example.bankaccountapp.utils.Csv
 import com.example.bankaccountapp.utils.toSHA256
 import java.io.File
@@ -35,33 +38,36 @@ class NewAccount : AppCompatActivity() {
         radioCorrente = findViewById(R.id.radio_conta_corrente)
         radioPoupanca = findViewById(R.id.radio_conta_poupança)
 
+
         buttonCreateAccount.setOnClickListener{
-            if(nomeCompleto.text.isEmpty()){
+            val nome = nomeCompleto.text.toString()
+            val senha = password.text.toString()
+            if(nome.isEmpty() || senha.isEmpty()){
 
             }
             else{
-
-                val accountType = accountType()
+//                val accountType = accountType()
                 val accountnumber = newAccountNumber()
-                adicionarConta(accountnumber, nomeCompleto.text.toString(), password.text.toString(), accountType)
+                val conta = if (radioCorrente.isChecked){
+                    CurrentAccount(accountnumber,nome,senha.toSHA256(),Calendar.getInstance().time,0L)
+                }
+                else{
+                    SavingsAccount(accountnumber,nome,senha.toSHA256(),Calendar.getInstance().time,0L)
+                }
+                Csv.adicionarConta(conta)
 
                 finish()
             }
         }
     }
 
-    private fun adicionarConta( accountnumber: Int,nome : String, senha: String, type: String){
-        var saldo = 0
-        var data = Calendar.getInstance().time.time
-        val file = File(cacheDir, "accounts.csv")
-        val fileWriter = FileWriter(file, true)
-        fileWriter.append("${accountnumber};${type};${nome};${senha.toSHA256()};${data};${saldo}\n")
-        fileWriter.close()
-    }
+
+
+    //arrumar account number
 
     private fun newAccountNumber(): Int {
         var maior = 0
-        val contas = Csv.lerCsv(this)
+        val contas = Csv.lerCsv()
         contas.forEach{
             if(it.accountNumber>maior){
                 maior = it.accountNumber
@@ -71,14 +77,14 @@ class NewAccount : AppCompatActivity() {
     }
 
 
-    private fun accountType(): String {
-        if(radioCorrente.isChecked){
-            return "Current Account"
-        }
-        else if(radioPoupanca.isChecked){
-            return "Savings Account"
-        }
-        return ""
-    }
+//    private fun accountType(): String {
+//        if(radioCorrente.isChecked){
+//            return "Current Account"
+//        }
+//        else if(radioPoupanca.isChecked){
+//            return "Savings Account"
+//        }
+//        return ""
+//    }
 
 }

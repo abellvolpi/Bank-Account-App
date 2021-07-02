@@ -9,16 +9,22 @@ abstract class Account : Serializable {
     val accountNumber: Int
     var password: String
     var ownersName: String
-    val creationDate : Date
+    val creationDate: Date
     var balance: Long
 
 
-    constructor(accountNumber: Int, ownersName: String, password: String, creationDate: Date, balance: Long) {
+    constructor(
+        accountNumber: Int,
+        ownersName: String,
+        password: String,
+        creationDate: Date,
+        balance: Long
+    ) {
         this.accountNumber = accountNumber
         this.ownersName = ownersName
         this.password = password
         this.creationDate = creationDate
-        this.balance = 0
+        this.balance = balance
     }
 
     open fun withdraw(value: Long): Long {
@@ -26,23 +32,9 @@ abstract class Account : Serializable {
         return balance
     }
 
-    open fun deposit (value: Long): Long{
+    open fun deposit(value: Long): Long {
         balance += value
         return balance
     }
-
-
-    fun linhaCsv(): String{
-        return "${accountNumber};${password};${ownersName};${creationDate};${balance}\n"
-    }
-
-
-//    fun deposit(value: Long): Long {
-//
-//    }
-//
-//    fun withdraw(value: Long): Long {
-//
-//    }
-
 }
+

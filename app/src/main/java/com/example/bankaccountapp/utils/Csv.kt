@@ -4,10 +4,7 @@ import android.content.Context
 import com.example.bankaccountapp.contas.Account
 import com.example.bankaccountapp.contas.CurrentAccount
 import com.example.bankaccountapp.contas.SavingsAccount
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
-import java.io.InputStreamReader
+import java.io.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -16,15 +13,28 @@ import kotlin.collections.ArrayList
 
 object Csv {
 
-    var contas: ArrayList<Account>? = null
+    private var contas: ArrayList<Account>? = null
 
+    fun adicionarConta(conta: Account){
+        val contas = lerCsv()
+        contas.add(conta)
+        val file = File(MainApplication.applicationContext().cacheDir, "accounts.csv")
+        val fileWriter = FileWriter(file, true)
+        val type = if(conta is CurrentAccount){
+            "Current Account"
+        }
+        else{
+            "Savings Account"
+        }
+        fileWriter.append("${conta.accountNumber};${type};${conta.ownersName};${conta.password.toSHA256()};${conta.creationDate.time};${conta.balance}\n")
+        fileWriter.close()
+    }
 
-
-    fun lerCsv(context: Context): ArrayList<Account> {
+    fun lerCsv(): ArrayList<Account> {
 
         return contas ?: arrayListOf<Account>().also { list ->
 
-            val file = File(context.cacheDir, "accounts.csv")
+            val file = File(MainApplication.applicationContext().cacheDir, "accounts.csv")
             val fileReader = FileReader(file)
             val bufferedReader = BufferedReader(fileReader)
             var row: List<String>
@@ -54,14 +64,31 @@ object Csv {
                                 row[5].toLong()
                             )
                         )
-                    else -> null
                 }
             }
             contas = list
         }
     }
+
     fun convertToDate(time: Long): Date{
         return Date(time)
     }
+
+
+    fun escreverCsv(){
+        val contas = lerCsv()
+        val file = File(MainApplication.applicationContext().cacheDir, "accounts.csv")
+        val fileWriter = FileWriter(file, false) // true ele adiciona a informação de agora no arquivo já existente, e false ele ignora o que tinha antes e reescreve do 0
+        contas.forEach{
+            if(it is CurrentAccount){
+                fileWriter.append("${it.accountNumber};Current Account;${it.ownersName};${it.password};${it.creationDate.time};${it.balance}\n")
+            }
+            else{
+                fileWriter.append("${it.accountNumber};Savings Account;${it.ownersName};${it.password};${it.creationDate.time};${it.balance}\n")
+            }
+        }
+        fileWriter.close()
+    }
+
 
 }

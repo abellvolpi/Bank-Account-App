@@ -42,12 +42,17 @@ class NewAccount : AppCompatActivity() {
         buttonCreateAccount.setOnClickListener{
             val nome = nomeCompleto.text.toString()
             val senha = password.text.toString()
+
+
             if(nome.isEmpty() || senha.isEmpty()){
 
             }
+
+
             else{
-//                val accountType = accountType()
+
                 val accountnumber = newAccountNumber()
+
                 val conta = if (radioCorrente.isChecked){
                     CurrentAccount(accountnumber,nome,senha.toSHA256(),Calendar.getInstance().time,0L)
                 }
@@ -62,8 +67,6 @@ class NewAccount : AppCompatActivity() {
     }
 
 
-
-    //arrumar account number
 
     private fun newAccountNumber(): Int {
         var maior = 0

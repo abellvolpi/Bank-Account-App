@@ -19,7 +19,7 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var buttonWithDraw: LinearLayout
     private lateinit var buttonDeposit: LinearLayout
     private lateinit var buttonLogout: LinearLayout
-//    lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +27,11 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
 
-
         buttonLogout = findViewById(R.id.button_logout)
         buttonWithDraw = findViewById(R.id.button_sacar)
         buttonDeposit = findViewById(R.id.buttondepositar)
         var account = intent.getSerializableExtra(ACCOUNT) as Account
+
 
         val startForResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -45,7 +45,8 @@ class MenuActivity : AppCompatActivity() {
         // result: ActivityResult -> classe que vem com os dados da tela
 
 
-        //preferences : SharedPreferences = getSharedPreferences("CREDENCIAIS",Context.MODE_PRIVATE)
+        preferences = getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
+
 
         buttonDeposit.setOnClickListener {
 
@@ -53,8 +54,11 @@ class MenuActivity : AppCompatActivity() {
                 putExtra(ACCOUNT, account)
                 putExtra(STRING, "Digite o Valor do Depósito")
             }
+
             startForResult.launch(intencao)
+
         }
+
 
         buttonWithDraw.setOnClickListener {
 
@@ -67,14 +71,10 @@ class MenuActivity : AppCompatActivity() {
 
         buttonLogout.setOnClickListener {
 
-//            val editor: SharedPreferences.Editor = preferences.edit()
-//            editor.clear()
-//            editor.apply()
+            val editor: SharedPreferences.Editor = preferences.edit()
+            editor.clear()
+            editor.apply()
 
-            this.getPreferences(Context.MODE_PRIVATE).edit().apply {
-                clear()
-            }
-            finish()
             val intencao = Intent(this, LoginActivity::class.java)
             startActivity(intencao)
 

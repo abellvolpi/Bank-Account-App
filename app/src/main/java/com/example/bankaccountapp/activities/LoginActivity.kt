@@ -30,15 +30,18 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var buttonLogin: View
     private lateinit var progress: ProgressBar
     private lateinit var buttonNewAccount: View
-//    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-        //sharedPreferences = getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         username = findViewById(R.id.username_field)
         password = findViewById(R.id.password_field)
@@ -52,8 +55,8 @@ class LoginActivity : AppCompatActivity() {
         fileWriter.close()
 
 
-        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
         val contaRegistradaId = sharedPreferences.getString("ID", "").toString()
+
 
         if (contaRegistradaId.isNotEmpty()) {
             var conta: Account
@@ -75,15 +78,10 @@ class LoginActivity : AppCompatActivity() {
             delay {
                 efetuaLogin(username.text.toString(), password.text.toString().toSHA256())?.let {
 
-                    // val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                    //editor.putString("ID", it.accountNumber.toString())
-                    //editor.apply()
+                    val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                    editor.putString("ID", it.accountNumber.toString())
+                    editor.apply()
 
-
-                    this.getPreferences(Context.MODE_PRIVATE).edit().apply {
-                        putString("ID", it.accountNumber.toString())
-                        apply()
-                    }
 
                     val intencao = Intent(this, MenuActivity::class.java).apply {
                         putExtra(ACCOUNT, it)
@@ -131,6 +129,7 @@ class LoginActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(action, delay)
     }
 
+
     private fun loginInvalido() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Erro")
@@ -140,6 +139,7 @@ class LoginActivity : AppCompatActivity() {
         caixa_dialogo.show()
 
     }
+
 
     private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
         val contas = Csv.lerCsv()

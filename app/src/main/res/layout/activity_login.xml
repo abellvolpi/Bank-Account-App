@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:clipToPadding="false"
     android:paddingHorizontal="40dp"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.LoginFragment">
 
 
 

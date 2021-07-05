@@ -6,15 +6,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
 
 const val STRING = "STRING"
 
-class MenuActivity : AppCompatActivity() {
+class MenuFragment : Fragment(R.layout.activity_menu) {
 
     private lateinit var buttonWithDraw: LinearLayout
     private lateinit var buttonDeposit: LinearLayout
@@ -22,16 +24,15 @@ class MenuActivity : AppCompatActivity() {
     lateinit var preferences: SharedPreferences
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-
-        buttonLogout = findViewById(R.id.button_logout)
-        buttonWithDraw = findViewById(R.id.button_sacar)
-        buttonDeposit = findViewById(R.id.buttondepositar)
-        var account = intent.getSerializableExtra(ACCOUNT) as Account
-
+        view.apply {
+            buttonLogout = findViewById(R.id.button_logout)
+            buttonWithDraw = findViewById(R.id.button_sacar)
+            buttonDeposit = findViewById(R.id.buttondepositar)
+//            var account = intent.getSerializableExtra(ACCOUNT) as Account
+        }
 
         val startForResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -39,34 +40,36 @@ class MenuActivity : AppCompatActivity() {
                 if (it.resultCode == Activity.RESULT_OK) {
                     val intent = it.data?.extras?.getSerializable("novoSaldo")
                         ?: ""  //?: se for nulo, realiza a string dps
-                    account = intent as Account
+//                    account = intent as Account
                 }
             }
         // result: ActivityResult -> classe que vem com os dados da tela
 
 
-        preferences = getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
+        preferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
 
         buttonDeposit.setOnClickListener {
 
-            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-                putExtra(ACCOUNT, account)
-                putExtra(STRING, "Digite o Valor do Depósito")
-            }
+//            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
+//                putExtra(ACCOUNT, account)
+//                putExtra(STRING, "Digite o Valor do Depósito")
+//            }
+//
+//            startForResult.launch(intencao)
+//
 
-            startForResult.launch(intencao)
 
         }
 
 
         buttonWithDraw.setOnClickListener {
-
-            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-                putExtra(ACCOUNT, account)
-                putExtra(STRING, "Deposite o valor do Saque")
-            }
-            startForResult.launch(intencao)
+//
+//            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
+//                putExtra(ACCOUNT, account)
+//                putExtra(STRING, "Deposite o valor do Saque")
+//            }
+//            startForResult.launch(intencao)
         }
 
         buttonLogout.setOnClickListener {
@@ -74,10 +77,13 @@ class MenuActivity : AppCompatActivity() {
             val editor: SharedPreferences.Editor = preferences.edit()
             editor.clear()
             editor.apply()
+//
+//            val intencao = Intent(this, LoginActivity::class.java)
+//            startActivity(intencao)
 
-            val intencao = Intent(this, LoginActivity::class.java)
-            startActivity(intencao)
-
+            var ft = activity?.supportFragmentManager?.beginTransaction()
+            ft?.replace(R.id.fragment_container_view, LoginFragment())
+            ft?.commit()
         }
 
 

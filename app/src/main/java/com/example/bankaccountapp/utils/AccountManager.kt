@@ -11,22 +11,21 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-object Csv {
+object AccountManager {
 
     private var contas: ArrayList<Account>? = null
 
-    fun adicionarConta(conta: Account){
+    fun adicionarConta(conta: Account) {
         val contas = lerCsv()
         contas.add(conta)
         val file = File(MainApplication.applicationContext().cacheDir, "accounts.csv")
         val fileWriter = FileWriter(file, true)
-        val type = if(conta is CurrentAccount){
+        val type = if (conta is CurrentAccount) {
             "Current Account"
-        }
-        else{
+        } else {
             "Savings Account"
         }
-        fileWriter.append("${conta.accountNumber};${type};${conta.ownersName};${conta.password.toSHA256()};${conta.creationDate.time};${conta.balance}\n")
+        fileWriter.append("${conta.accountNumber};${type};${conta.ownersName};${conta.password};${conta.creationDate.time};${conta.balance}\n")
         fileWriter.close()
     }
 
@@ -70,25 +69,46 @@ object Csv {
         }
     }
 
-    fun convertToDate(time: Long): Date{
+    fun convertToDate(time: Long): Date {
         return Date(time)
     }
 
 
-    fun escreverCsv(){
+    fun escreverCsv() {
         val contas = lerCsv()
         val file = File(MainApplication.applicationContext().cacheDir, "accounts.csv")
-        val fileWriter = FileWriter(file, false) // true ele adiciona a informação de agora no arquivo já existente, e false ele ignora o que tinha antes e reescreve do 0
-        contas.forEach{
-            if(it is CurrentAccount){
+        val fileWriter = FileWriter(
+            file,
+            false
+        ) // true ele adiciona a informação de agora no arquivo já existente, e false ele ignora o que tinha antes e reescreve do 0
+        contas.forEach {
+            if (it is CurrentAccount) {
                 fileWriter.append("${it.accountNumber};Current Account;${it.ownersName};${it.password};${it.creationDate.time};${it.balance}\n")
-            }
-            else{
+            } else {
                 fileWriter.append("${it.accountNumber};Savings Account;${it.ownersName};${it.password};${it.creationDate.time};${it.balance}\n")
             }
         }
         fileWriter.close()
     }
 
+    //contaCorrente é true, contaPoupança false
+    fun existeContaCorrente(nome: String, isCurrentAccount: Boolean): Boolean {
+        lerCsv().forEach {
+            if (it.ownersName == nome && it is CurrentAccount == isCurrentAccount) {
+                return true
+            }
+        }
+        return false
+    }
+
+//    fun existeContaPoupança(nome: String, isSavingsAccount: Boolean): Boolean {
+//        lerCsv().forEach {
+//            if (it.ownersName == nome && it is SavingsAccount == isSavingsAccount) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
 
 }
+

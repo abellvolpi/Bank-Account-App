@@ -1,6 +1,8 @@
 package com.example.bankaccountapp.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -28,15 +30,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var buttonLogin: View
     private lateinit var progress: ProgressBar
     private lateinit var buttonNewAccount: View
-
+//    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-        super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_login)
+        //sharedPreferences = getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
         username = findViewById(R.id.username_field)
         password = findViewById(R.id.password_field)
@@ -44,21 +46,53 @@ class LoginActivity : AppCompatActivity() {
         progress = findViewById(R.id.progress)
         buttonNewAccount = findViewById(R.id.button_newAccount)
 
+
         val file = File(cacheDir, "accounts.csv")
         val fileWriter = FileWriter(file, true)
         fileWriter.close()
+
+
+        val sharedPreferences = this.getPreferences(Context.MODE_PRIVATE)
+        val contaRegistradaId = sharedPreferences.getString("ID", "").toString()
+
+        if (contaRegistradaId.isNotEmpty()) {
+            var conta: Account
+            val contas = Csv.lerCsv()
+            contas.forEach {
+                if (it.accountNumber == contaRegistradaId.toInt()) {
+                    conta = it
+                    val intencao = Intent(this, MenuActivity::class.java).apply {
+                        putExtra(ACCOUNT, conta)
+                    }
+                    startActivity(intencao)
+                }
+            }
+        }
 
 
         buttonLogin.setOnClickListener {
             changeState(true)
             delay {
                 efetuaLogin(username.text.toString(), password.text.toString().toSHA256())?.let {
+
+                    // val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                    //editor.putString("ID", it.accountNumber.toString())
+                    //editor.apply()
+
+
+                    this.getPreferences(Context.MODE_PRIVATE).edit().apply {
+                        putString("ID", it.accountNumber.toString())
+                        apply()
+                    }
+
                     val intencao = Intent(this, MenuActivity::class.java).apply {
-                        putExtra(ACCOUNT,it)
+                        putExtra(ACCOUNT, it)
                     }
                     startActivity(intencao)
                     finish()
+
                 } ?: run {
+
                     loginInvalido()
                     changeState(false)
 

@@ -16,6 +16,7 @@ import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
 import com.example.bankaccountapp.utils.Csv
 import com.example.bankaccountapp.utils.Csv.escreverCsv
+import com.example.bankaccountapp.utils.balanceFormated
 import org.w3c.dom.Text
 import java.text.NumberFormat
 
@@ -40,7 +41,7 @@ class ManageMoneyActivity : AppCompatActivity() {
         val mensagem = intent.getSerializableExtra(STRING) as String
         var account = intent.getSerializableExtra(ACCOUNT) as Account
         managemoneyText.text = mensagem
-        saldoAtual.text = "Seu saldo atual é de R$ ${account.balance}"
+        saldoAtual.text = "Seu saldo atual é de R$ ${balanceFormated(account.balance)}"
 
         valor.addTextChangedListener(object : TextWatcher { // assiste enquanto o usuário digita
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { //alterações antes do texto mudar

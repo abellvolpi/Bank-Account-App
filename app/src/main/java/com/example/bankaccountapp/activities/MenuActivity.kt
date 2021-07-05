@@ -1,7 +1,9 @@
 package com.example.bankaccountapp.activities
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -14,9 +16,10 @@ const val STRING = "STRING"
 
 class MenuActivity : AppCompatActivity() {
 
-    private lateinit var buttonWithDraw : LinearLayout
-    private lateinit var buttonDeposit : LinearLayout
-
+    private lateinit var buttonWithDraw: LinearLayout
+    private lateinit var buttonDeposit: LinearLayout
+    private lateinit var buttonLogout: LinearLayout
+//    lateinit var preferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,37 +27,61 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
 
-        buttonWithDraw = findViewById(R.id.buttonSacar)
+
+        buttonLogout = findViewById(R.id.button_logout)
+        buttonWithDraw = findViewById(R.id.button_sacar)
         buttonDeposit = findViewById(R.id.buttondepositar)
         var account = intent.getSerializableExtra(ACCOUNT) as Account
 
-        val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            // result: ActivityResult -> só serve para definir o "nome" do it
-            if (it.resultCode == Activity.RESULT_OK) {
-                val intent = it.data?.extras?.getSerializable("novoSaldo") ?: ""  //?: se for nulo, realiza a string dps
-                account = intent as Account
+        val startForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                // result: ActivityResult -> só serve para definir o "nome" do it
+                if (it.resultCode == Activity.RESULT_OK) {
+                    val intent = it.data?.extras?.getSerializable("novoSaldo")
+                        ?: ""  //?: se for nulo, realiza a string dps
+                    account = intent as Account
+                }
             }
-        }
         // result: ActivityResult -> classe que vem com os dados da tela
 
 
+        //preferences : SharedPreferences = getSharedPreferences("CREDENCIAIS",Context.MODE_PRIVATE)
 
-        buttonDeposit.setOnClickListener{
+        buttonDeposit.setOnClickListener {
+
             val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-                putExtra(ACCOUNT,account)
-                putExtra(STRING,"Digite o Valor do Depósito")
+                putExtra(ACCOUNT, account)
+                putExtra(STRING, "Digite o Valor do Depósito")
             }
             startForResult.launch(intencao)
         }
 
-        buttonWithDraw.setOnClickListener{
-            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-                putExtra(ACCOUNT,account)
-                putExtra(STRING,"Deposite o valor do Saque")
-            }
-            startForResult.launch(intencao)        }
-    }
+        buttonWithDraw.setOnClickListener {
 
+            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
+                putExtra(ACCOUNT, account)
+                putExtra(STRING, "Deposite o valor do Saque")
+            }
+            startForResult.launch(intencao)
+        }
+
+        buttonLogout.setOnClickListener {
+
+//            val editor: SharedPreferences.Editor = preferences.edit()
+//            editor.clear()
+//            editor.apply()
+
+            this.getPreferences(Context.MODE_PRIVATE).edit().apply {
+                clear()
+            }
+            finish()
+            val intencao = Intent(this, LoginActivity::class.java)
+            startActivity(intencao)
+
+        }
+
+
+    }
 
 
 }

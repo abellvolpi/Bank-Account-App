@@ -1,93 +1,112 @@
 package com.example.bankaccountapp.activities
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
+import com.example.bankaccountapp.databinding.FragmentLoginBinding
+import com.example.bankaccountapp.databinding.FragmentManageMoneyBinding
+import com.example.bankaccountapp.databinding.FragmentMenuBinding
+import com.example.bankaccountapp.utils.replaceFragment
 
 const val STRING = "STRING"
 
-class MenuFragment : Fragment(R.layout.activity_menu) {
+class MenuFragment : Fragment(R.layout.fragment_menu) {
 
-    private lateinit var buttonWithDraw: LinearLayout
-    private lateinit var buttonDeposit: LinearLayout
-    private lateinit var buttonLogout: LinearLayout
+
     lateinit var preferences: SharedPreferences
+    private lateinit var binding: FragmentMenuBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMenuBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.apply {
-            buttonLogout = findViewById(R.id.button_logout)
-            buttonWithDraw = findViewById(R.id.button_sacar)
-            buttonDeposit = findViewById(R.id.buttondepositar)
-//            var account = intent.getSerializableExtra(ACCOUNT) as Account
-        }
 
-        val startForResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                // result: ActivityResult -> só serve para definir o "nome" do it
-                if (it.resultCode == Activity.RESULT_OK) {
-                    val intent = it.data?.extras?.getSerializable("novoSaldo")
-                        ?: ""  //?: se for nulo, realiza a string dps
-//                    account = intent as Account
-                }
-            }
+        var account = arguments?.getSerializable(ACCOUNT) as Account
+
+
+//        val startForResult =
+//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//                // result: ActivityResult -> só serve para definir o "nome" do it
+//                if (it.resultCode == Activity.RESULT_OK) {
+//                    val intent = it.data?.extras?.getSerializable("novoSaldo")
+//                        ?: ""  //?: se for nulo, realiza a string dps
+////                    account = intent as Account
+//                }
+//            }
         // result: ActivityResult -> classe que vem com os dados da tela
 
 
         preferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
-
-        buttonDeposit.setOnClickListener {
-
-//            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-//                putExtra(ACCOUNT, account)
-//                putExtra(STRING, "Digite o Valor do Depósito")
-//            }
-//
-//            startForResult.launch(intencao)
-//
+        with(binding) {
 
 
+            buttondepositar.setOnClickListener {
+
+                replaceFragment(
+                    ManageMoneyFragment.newInstance(account, "Digite o Valor do Depósito"),
+                    R.id.fragment_container_view
+                )
+
+            }
+
+
+            buttonSacar.setOnClickListener {
+
+                replaceFragment(
+                    ManageMoneyFragment.newInstance(account, "Deposite o valor do Saque"),
+                    R.id.fragment_container_view
+                )
+
+            }
+
+            buttonLogout.setOnClickListener {
+
+                val editor: SharedPreferences.Editor = preferences.edit()
+                editor.clear()
+                editor.apply()
+
+//            var ft = activity?.supportFragmentManager?.beginTransaction()
+//            ft?.replace(R.id.fragment_container_view, LoginFragment())
+//            ft?.commit()
+
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment_container_view, LoginFragment())?.commit()
+            }
         }
-
-
-        buttonWithDraw.setOnClickListener {
-//
-//            val intencao = Intent(this, ManageMoneyActivity::class.java).apply {
-//                putExtra(ACCOUNT, account)
-//                putExtra(STRING, "Deposite o valor do Saque")
-//            }
-//            startForResult.launch(intencao)
-        }
-
-        buttonLogout.setOnClickListener {
-
-            val editor: SharedPreferences.Editor = preferences.edit()
-            editor.clear()
-            editor.apply()
-//
-//            val intencao = Intent(this, LoginActivity::class.java)
-//            startActivity(intencao)
-
-            var ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.fragment_container_view, LoginFragment())
-            ft?.commit()
-        }
-
 
     }
 
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment Test3Fragment.
+         */
+        @JvmStatic
+        fun newInstance(account: Account) =
+            MenuFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ACCOUNT, account)
+                }
+            }
+    }
 
 }

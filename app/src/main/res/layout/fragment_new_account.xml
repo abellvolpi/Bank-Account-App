@@ -31,7 +31,7 @@
 
 
         <EditText
-            android:id="@+id/create_account_nomecompleto"
+            android:id="@+id/nome_completo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -40,7 +40,7 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/create_account_senha"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -72,7 +72,7 @@
                 android:text="Conta Corrente" />
 
             <RadioButton
-                android:id="@+id/radio_conta_poupança"
+                android:id="@+id/radio_conta_poupanca"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -102,7 +102,7 @@
 
 
         <LinearLayout
-            android:id="@+id/create_account_button"
+            android:id="@+id/button_create_account"
             android:layout_width="200dp"
             android:layout_height="35dp"
             android:background="@drawable/layout_button"

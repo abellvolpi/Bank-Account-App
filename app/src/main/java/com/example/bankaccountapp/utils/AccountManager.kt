@@ -101,14 +101,5 @@ object AccountManager {
         return false
     }
 
-//    fun existeContaPoupança(nome: String, isSavingsAccount: Boolean): Boolean {
-//        lerCsv().forEach {
-//            if (it.ownersName == nome && it is SavingsAccount == isSavingsAccount) {
-//                return true
-//            }
-//        }
-//        return false
-//    }
-
 }
 

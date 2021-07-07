@@ -1,13 +1,10 @@
 package com.example.bankaccountapp.utils
 
-import android.content.Context
 import com.example.bankaccountapp.contas.Account
 import com.example.bankaccountapp.contas.CurrentAccount
 import com.example.bankaccountapp.contas.SavingsAccount
 import java.io.*
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 import java.util.*
 import kotlin.collections.ArrayList
 

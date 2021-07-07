@@ -1,9 +1,6 @@
 package com.example.bankaccountapp.utils
 
-import android.accounts.Account
 import java.security.MessageDigest
-import android.app.Application
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
@@ -37,25 +34,4 @@ fun FragmentActivity.replaceFragment(
             }
         }
     }
-}
-
-fun Fragment.replaceFragment(
-    fragment: Fragment,
-    containerId: Int,
-    tag: String = "",
-    addToStack: Boolean = true,
-    stackName: String? = null
-) {
-    activity?.replaceFragment(
-        fragment,
-        containerId,
-        tag,
-        addToStack,
-        stackName
-    )
-}
-
-
-fun Fragment.popBackStack(stackName: String? = null, flags: Int = 0) {
-    activity?.supportFragmentManager?.popBackStackImmediate(stackName, flags)
 }

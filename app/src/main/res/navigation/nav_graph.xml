@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+            app:destination="@id/menuFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_loginFragment_to_newAccountFragment"
             app:destination="@id/newAccountFragment" />
@@ -25,12 +27,32 @@
         <action
             android:id="@+id/action_menuFragment_to_manageMoneyFragment"
             app:destination="@id/manageMoneyFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <argument
+            android:name="conta"
+            app:argType="com.example.bankaccountapp.contas.Account" />
     </fragment>
+
     <fragment
         android:id="@+id/manageMoneyFragment"
         android:name="com.example.bankaccountapp.activities.ManageMoneyFragment"
         android:label="fragment_manage_money"
-        tools:layout="@layout/fragment_manage_money" />
+        tools:layout="@layout/fragment_manage_money" >
+        <action
+            android:id="@+id/action_manageMoneyFragment_to_menuFragment"
+            app:popUpTo="@id/menuFragment" />
+        <argument
+            android:name="conta"
+            app:argType="com.example.bankaccountapp.contas.Account" />
+        <argument
+            android:name="acao"
+            app:argType="string" />
+
+<!--        Declaração do Argumento fica apenas no que recebe-->
+
+    </fragment>
     <fragment
         android:id="@+id/newAccountFragment"
         android:name="com.example.bankaccountapp.activities.NewAccountFragment"

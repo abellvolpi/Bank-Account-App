@@ -8,11 +8,9 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.contas.Account
@@ -30,88 +28,79 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginBinding
 
+    private val navController: NavController by lazy {
+        findNavController()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(inflater,container,false)
+
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
+
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        with(binding) {
 
+            sharedPreferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
+            val file = File(activity?.applicationContext?.cacheDir,"accounts.csv") // ou requireContext().cachedir
+            val fileWriter = FileWriter(file, true)
+            fileWriter.close()
 
-        sharedPreferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
+            val contaRegistradaId = sharedPreferences.getString("ID", "").toString()
 
+            if (contaRegistradaId.isNotEmpty()) {
+                var conta: Account
+                val contas = AccountManager.lerCsv()
+                contas.forEach {
+                    if (it.accountNumber == contaRegistradaId.toInt()) {
 
-//        view.apply {
-//            username = findViewById(R.id.username_field)
-//            password = findViewById(R.id.password_field)
-//            progress = findViewById(R.id.progress)
-//            buttonNewAccount = findViewById(R.id.button_newAccount)
-//        }
-
-
-        val file = File( activity?.applicationContext?.cacheDir, "accounts.csv") // ou requireContext().cachedir
-        val fileWriter = FileWriter(file, true)
-        fileWriter.close()
-
-
-        val contaRegistradaId = sharedPreferences.getString("ID", "").toString()
-
-
-        if (contaRegistradaId.isNotEmpty()) {
-            var conta: Account
-            val contas = AccountManager.lerCsv()
-            contas.forEach {
-                if (it.accountNumber == contaRegistradaId.toInt()) {
-                    conta = it
-                    var ft = activity?.supportFragmentManager?.beginTransaction()
-                    val bundle = bundleOf(Pair(ACCOUNT,conta))
-                    ft?.replace(R.id.fragment_container_view, MenuFragment::class.java,bundle)
-                    ft?.commit()
+                        val action = LoginFragmentDirections.actionLoginFragmentToMenuFragment(it)
+                        navController.navigate(action)
+                    }
                 }
             }
-        }
 
 
-        binding.buttonLogin.setOnClickListener {
-            changeState(true)
-            delay {
-                efetuaLogin(binding.usernameField.text.toString(), binding.passwordField.text.toString().toSHA256())?.let {
+            buttonLogin.setOnClickListener {
+                changeState(true)
+                delay {
+                    efetuaLogin(
+                        usernameField.text.toString(),
+                        passwordField.text.toString().toSHA256()
+                    )?.let {
 
-                    val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                    editor.putString("ID", it.accountNumber.toString())
-                    editor.apply()
+                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                        editor.putString("ID", it.accountNumber.toString())
+                        editor.apply()
 
-                    var ft = activity?.supportFragmentManager?.beginTransaction()
-                    val bundle = bundleOf(Pair(ACCOUNT,it))
-                    ft?.replace(R.id.fragment_container_view, MenuFragment::class.java,bundle)
-                    ft?.commit()
+                        val action = LoginFragmentDirections.actionLoginFragmentToMenuFragment(it)
+                        navController.navigate(action)
+//                        navController.navigate(R.id.action_loginFragment_to_menuFragment, bundleOf(Pair(ACCOUNT, it)))
 
 
-                } ?: run {
+                    } ?: run {
 
-                    loginInvalido()
-                    changeState(false)
+                        loginInvalido()
+                        changeState(false)
 
+                    }
                 }
             }
-        }
 
-        binding.buttonNewAccount.setOnClickListener {
-//            val intencao = Intent(this, NewAccountFragment::class.java).apply {
-//            }
-//            startActivity(intencao)
+            buttonNewAccount.setOnClickListener {
 
-            var ft = activity?.supportFragmentManager?.beginTransaction()
-            ft?.replace(R.id.fragment_container_view, NewAccountFragment())
-            ft?.commit()
+                navController.navigate(R.id.action_loginFragment_to_newAccountFragment)
+
+            }
         }
     }
 

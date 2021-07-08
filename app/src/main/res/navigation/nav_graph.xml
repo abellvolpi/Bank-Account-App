@@ -30,9 +30,16 @@
         <action
             android:id="@+id/action_menuFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_transferFragment"
+            app:destination="@id/transferFragment" />
         <argument
             android:name="conta"
             app:argType="com.example.bankaccountapp.contas.Account" />
+        <action
+            android:id="@+id/action_menuFragment_to_historicFragment"
+            app:destination="@id/historicFragment" />
+
     </fragment>
 
     <fragment
@@ -62,4 +69,27 @@
             android:id="@+id/action_newAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.example.bankaccountapp.activities.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transferFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <argument
+            android:name="conta"
+            app:argType="com.example.bankaccountapp.contas.Account" />
+    </fragment>
+    <fragment
+        android:id="@+id/historicFragment"
+        android:name="com.example.bankaccountapp.activities.HistoricFragment"
+        android:label="fragment_historic"
+        tools:layout="@layout/fragment_historic" >
+    <argument
+        android:name="conta"
+        app:argType="com.example.bankaccountapp.contas.Account" />
+    </fragment>
+
+
 </navigation>

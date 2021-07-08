@@ -58,7 +58,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val contaRegistradaId = sharedPreferences.getString("ID", "").toString()
 
             if (contaRegistradaId.isNotEmpty()) {
-                var conta: Account
+
                 val contas = AccountManager.lerCsv()
                 contas.forEach {
                     if (it.accountNumber == contaRegistradaId.toInt()) {
@@ -67,6 +67,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         navController.navigate(action)
                     }
                 }
+
             }
 
 

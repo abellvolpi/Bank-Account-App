@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Bank Account App</string>
     <string name="managemoney_text">Digite o Valor</string>
-    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

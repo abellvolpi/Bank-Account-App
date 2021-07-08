@@ -55,6 +55,20 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
             }
 
+            buttonTransfer.setOnClickListener{
+
+                val action = MenuFragmentDirections.actionMenuFragmentToTransferFragment(args.conta)
+                navController.navigate(action)
+            }
+
+            buttonhistoric.setOnClickListener {
+
+                val action = MenuFragmentDirections.actionMenuFragmentToHistoricFragment(args.conta)
+                navController.navigate(action)
+
+            }
+
+
 
             buttonLogout.setOnClickListener {
 

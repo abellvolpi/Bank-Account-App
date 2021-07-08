@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun String.toSHA256(): String {
     val messageDigest = MessageDigest.getInstance("SHA-256").digest(toByteArray())
@@ -18,20 +20,7 @@ fun balanceFormated(long: Long): String {
     val formatter = DecimalFormat("###,###,##.##")
     return formatter.format(long).toString()
 }
-
-fun FragmentActivity.replaceFragment(
-    fragment: Fragment,
-    containerId: Int,
-    tag: String = "",
-    addToStack: Boolean = true,
-    stackName: String? = null
-) {
-    supportFragmentManager.commit {
-        replace(containerId, fragment, tag)
-        if (addToStack) {
-            supportFragmentManager.findFragmentById(containerId)?.let {
-                addToBackStack(stackName)
-            }
-        }
-    }
+fun formatDateToHHMMYYYYHHMM(date: Date): String{
+    val fmt = SimpleDateFormat("dd MMM")
+    return fmt.format(date)
 }

@@ -1,4 +1,4 @@
-package com.example.bankaccountapp
+package com.example.bankaccountapp.models
 
 import java.util.*
 

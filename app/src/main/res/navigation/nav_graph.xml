@@ -35,7 +35,7 @@
             app:destination="@id/transferFragment" />
         <argument
             android:name="conta"
-            app:argType="com.example.bankaccountapp.contas.Account" />
+            app:argType="com.example.bankaccountapp.models.Account" />
         <action
             android:id="@+id/action_menuFragment_to_historicFragment"
             app:destination="@id/historicFragment" />
@@ -52,7 +52,7 @@
             app:popUpTo="@id/menuFragment" />
         <argument
             android:name="conta"
-            app:argType="com.example.bankaccountapp.contas.Account" />
+            app:argType="com.example.bankaccountapp.models.Account" />
         <argument
             android:name="acao"
             app:argType="string" />
@@ -79,7 +79,7 @@
             app:destination="@id/menuFragment" />
         <argument
             android:name="conta"
-            app:argType="com.example.bankaccountapp.contas.Account" />
+            app:argType="com.example.bankaccountapp.models.Account" />
     </fragment>
     <fragment
         android:id="@+id/historicFragment"
@@ -88,7 +88,7 @@
         tools:layout="@layout/fragment_historic" >
     <argument
         android:name="conta"
-        app:argType="com.example.bankaccountapp.contas.Account" />
+        app:argType="com.example.bankaccountapp.models.Account" />
     </fragment>
 
 

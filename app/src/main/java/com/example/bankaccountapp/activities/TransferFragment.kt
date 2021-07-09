@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.bankaccountapp.R
-import com.example.bankaccountapp.contas.Account
+import com.example.bankaccountapp.models.Account
 import com.example.bankaccountapp.databinding.FragmentTransferBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.balanceFormated
@@ -119,13 +119,13 @@ class TransferFragment : Fragment(R.layout.fragment_transfer) {
     fun atualizartransferencias1(conta: Account, id: Int, valorTransferido: Long){
         val file = File(requireContext().cacheDir,"${conta.accountNumber}.csv") // ou requireContext().cachedir
         val fileWriter = FileWriter(file, true)
-        fileWriter.append("${conta.accountNumber};Enviada;${id};${valorTransferido};${Calendar.getInstance().time.time}\n")
+        fileWriter.append("${conta.accountNumber};Transferência enviada;${id};${valorTransferido};${Calendar.getInstance().time.time}\n")
         fileWriter.close()
     }
     fun atualizartransferencias2(conta: Account, id: Int, valorTransferido: Long){
         val file = File(requireContext().cacheDir,"${id}.csv") // ou requireContext().cachedir
         val fileWriter = FileWriter(file, true)
-        fileWriter.append("${id};Recebida;${conta.accountNumber};${valorTransferido};${Calendar.getInstance().time.time}\n")
+        fileWriter.append("${id};Transferência recebida;${conta.accountNumber};${valorTransferido};${Calendar.getInstance().time.time}\n")
         fileWriter.close()
     }
 

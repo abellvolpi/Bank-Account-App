@@ -6,30 +6,25 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.bankaccountapp.R
-import com.example.bankaccountapp.contas.Account
-import com.example.bankaccountapp.databinding.FragmentLoginBinding
 import com.example.bankaccountapp.databinding.FragmentManageMoneyBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.AccountManager.escreverCsv
 import com.example.bankaccountapp.utils.balanceFormated
+import java.io.File
+import java.io.FileWriter
 import java.text.NumberFormat
+import java.util.*
 
 class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
     private val args: ManageMoneyFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentManageMoneyBinding
-
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -92,7 +87,9 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
                                 it.balance += managemoneyValor.text.toString().filter {
                                     it.isDigit() // pega somente os digitos, tirando os pontos e virgulas
                                 }.toLong()
-
+                                atualizaHistoricoDeposito(it.accountNumber, managemoneyValor.text.toString().filter {
+                                    it.isDigit()
+                                }.toLong())
                                 findNavController().popBackStack()
 
                             }
@@ -109,7 +106,9 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
                                     it.balance -= managemoneyValor.text.toString().filter {
                                         it.isDigit()
                                     }.toLong()
-
+                                    atualizaHistoricoSaque(it.accountNumber, managemoneyValor.text.toString().filter {
+                                        it.isDigit()
+                                    }.toLong())
                                     findNavController().popBackStack()
 
                                 }
@@ -124,5 +123,18 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
     }
 
+    fun atualizaHistoricoDeposito(id: Int, valor: Long) {
+        val file = File(requireContext().cacheDir, "${id}.csv") // ou requireContext().cachedir
+        val fileWriter = FileWriter(file, true)
+        fileWriter.append("${id};Depósito;${id};${valor};${Calendar.getInstance().time.time}\n")
+        fileWriter.close()
+    }
+
+    fun atualizaHistoricoSaque(id: Int, valor: Long) {
+        val file = File(requireContext().cacheDir, "${id}.csv") // ou requireContext().cachedir
+        val fileWriter = FileWriter(file, true)
+        fileWriter.append("${id};Saque;${id};${valor};${Calendar.getInstance().time.time}\n")
+        fileWriter.close()
+    }
 }
 

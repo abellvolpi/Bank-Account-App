@@ -1,8 +1,8 @@
 package com.example.bankaccountapp.utils
 
-import com.example.bankaccountapp.contas.Account
-import com.example.bankaccountapp.contas.CurrentAccount
-import com.example.bankaccountapp.contas.SavingsAccount
+import com.example.bankaccountapp.models.Account
+import com.example.bankaccountapp.models.CurrentAccount
+import com.example.bankaccountapp.models.SavingsAccount
 import java.io.*
 
 import java.util.*

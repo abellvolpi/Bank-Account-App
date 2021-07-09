@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.bankaccountapp.R
-import com.example.bankaccountapp.contas.Account
+import com.example.bankaccountapp.models.Account
 import com.example.bankaccountapp.databinding.FragmentLoginBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.toSHA256

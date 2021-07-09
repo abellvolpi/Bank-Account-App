@@ -10,8 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.bankaccountapp.R
-import com.example.bankaccountapp.contas.CurrentAccount
-import com.example.bankaccountapp.contas.SavingsAccount
+import com.example.bankaccountapp.models.CurrentAccount
+import com.example.bankaccountapp.models.SavingsAccount
 import com.example.bankaccountapp.databinding.FragmentNewAccountBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.toSHA256

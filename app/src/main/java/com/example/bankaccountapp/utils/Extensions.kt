@@ -1,5 +1,8 @@
 package com.example.bankaccountapp.utils
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import java.security.MessageDigest
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -23,4 +26,8 @@ fun balanceFormated(long: Long): String {
 fun formatDateToHHMMYYYYHHMM(date: Date): String{
     val fmt = SimpleDateFormat("dd MMM")
     return fmt.format(date)
+}
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }

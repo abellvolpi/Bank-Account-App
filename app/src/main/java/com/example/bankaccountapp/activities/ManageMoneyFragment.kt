@@ -16,6 +16,7 @@ import com.example.bankaccountapp.databinding.FragmentManageMoneyBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.AccountManager.escreverCsv
 import com.example.bankaccountapp.utils.balanceFormated
+import com.example.bankaccountapp.utils.hideKeyboard
 import java.io.File
 import java.io.FileWriter
 import java.text.NumberFormat
@@ -83,6 +84,8 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
 
             managemoneyConfirm.setOnClickListener {
+
+                view.hideKeyboard()
 
                 if (managemoneyValor.text.toString().isBlank()) {
                     val toast = Toast.makeText(requireContext(), "Digite um valor", Toast.LENGTH_SHORT)

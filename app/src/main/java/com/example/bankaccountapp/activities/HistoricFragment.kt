@@ -45,8 +45,4 @@ class HistoricFragment : Fragment(R.layout.fragment_historic) {
         }
 
     }
-
-
-
-
 }

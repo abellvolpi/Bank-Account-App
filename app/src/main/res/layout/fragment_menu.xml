@@ -21,177 +21,187 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:text="Qual ação deseja realizar?"
+            android:gravity="start"
+            android:paddingVertical="18dp"
+            android:paddingStart="20dp"
+            android:text="Menu"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/ic_deposit"
-                    app:layout_constraintBottom_toTopOf="@id/buttondepositar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <LinearLayout
-                    android:id="@+id/buttondepositar"
-                    android:layout_width="200dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/layout_button_2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <TextView
-                        android:id="@+id/activity_menu_txt_deposito"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Depositar"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:ignore="MissingConstraints" />
-
-                </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menu_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/menu_itens" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content">-->
 
-        </LinearLayout>
+        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
 
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+        <!--                <ImageView-->
+        <!--                    android:layout_width="100dp"-->
+        <!--                    android:layout_height="100dp"-->
+        <!--                    android:layout_marginVertical="10dp"-->
+        <!--                    android:background="#00FFFFFF"-->
+        <!--                    android:src="@drawable/ic_deposit"-->
+        <!--                    app:layout_constraintBottom_toTopOf="@id/buttondepositar"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent" />-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <!--                <LinearLayout-->
+        <!--                    android:id="@+id/buttondepositar"-->
+        <!--                    android:layout_width="200dp"-->
+        <!--                    android:layout_height="35dp"-->
+        <!--                    android:background="@drawable/layout_button_2"-->
+        <!--                    android:clickable="true"-->
+        <!--                    android:focusable="true"-->
+        <!--                    android:gravity="center"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent">-->
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/ic_withdraw"
-                    app:layout_constraintBottom_toTopOf="@id/button_sacar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/activity_menu_txt_deposito"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:gravity="center"-->
+        <!--                        android:text="Depositar"-->
+        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                        app:layout_constraintStart_toStartOf="parent"-->
+        <!--                        tools:ignore="MissingConstraints" />-->
 
-
-                <LinearLayout
-                    android:id="@+id/button_sacar"
-                    android:layout_width="200dp"
-                    android:layout_height="35dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/layout_button_2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <TextView
-                        android:id="@+id/activity_menu_txt_sacar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Sacar"
-                        tools:ignore="MissingConstraints" />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        <!--                </LinearLayout>-->
 
 
-        <LinearLayout
-            android:id="@+id/button_transfer"
-            android:layout_width="200dp"
-            android:layout_height="35dp"
-            android:layout_marginVertical="20dp"
-            android:background="@drawable/layout_button_2"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center">
+        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Transferir" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/buttonhistoric"
-            android:layout_width="200dp"
-            android:layout_height="35dp"
-            android:background="@drawable/layout_button_2"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Histórico"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
-
-        </LinearLayout>
+        <!--        </LinearLayout>-->
 
 
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="30dp">-->
 
-        <LinearLayout
-            android:id="@+id/button_logout"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:layout_marginVertical="5dp"
-            android:background="@drawable/layout_button_2"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center">
+        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Logout" />
+        <!--                <ImageView-->
+        <!--                    android:layout_width="100dp"-->
+        <!--                    android:layout_height="100dp"-->
+        <!--                    android:layout_marginVertical="10dp"-->
+        <!--                    android:background="#00FFFFFF"-->
+        <!--                    android:src="@drawable/ic_withdraw"-->
+        <!--                    app:layout_constraintBottom_toTopOf="@id/button_sacar"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent" />-->
 
-        </LinearLayout>
+
+        <!--                <LinearLayout-->
+        <!--                    android:id="@+id/button_sacar"-->
+        <!--                    android:layout_width="200dp"-->
+        <!--                    android:layout_height="35dp"-->
+        <!--                    android:layout_marginBottom="20dp"-->
+        <!--                    android:background="@drawable/layout_button_2"-->
+        <!--                    android:clickable="true"-->
+        <!--                    android:focusable="true"-->
+        <!--                    android:gravity="center"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent">-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/activity_menu_txt_sacar"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:gravity="center"-->
+        <!--                        android:text="Sacar"-->
+        <!--                        tools:ignore="MissingConstraints" />-->
+
+        <!--                </LinearLayout>-->
+
+        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <!--        </LinearLayout>-->
+
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/button_transfer"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="35dp"-->
+        <!--            android:layout_marginVertical="20dp"-->
+        <!--            android:background="@drawable/layout_button_2"-->
+        <!--            android:clickable="true"-->
+        <!--            android:focusable="true"-->
+        <!--            android:gravity="center">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:gravity="center"-->
+        <!--                android:text="Transferir" />-->
+
+        <!--        </LinearLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/buttonhistoric"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="35dp"-->
+        <!--            android:background="@drawable/layout_button_2"-->
+        <!--            android:clickable="true"-->
+        <!--            android:focusable="true"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            android:layout_marginBottom="10dp">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:gravity="center"-->
+        <!--                android:text="Histórico"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                tools:ignore="MissingConstraints" />-->
+
+        <!--        </LinearLayout>-->
+
+
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/button_logout"-->
+        <!--            android:layout_width="100dp"-->
+        <!--            android:layout_height="35dp"-->
+        <!--            android:layout_marginVertical="5dp"-->
+        <!--            android:background="@drawable/layout_button_2"-->
+        <!--            android:clickable="true"-->
+        <!--            android:focusable="true"-->
+        <!--            android:gravity="center">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:gravity="center"-->
+        <!--                android:text="Logout" />-->
+
+        <!--        </LinearLayout>-->
 
     </LinearLayout>
 

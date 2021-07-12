@@ -9,20 +9,50 @@
     tools:context=".activities.HistoricFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/recycler_view"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_historic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/historic_item" />
+        >
 
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_historic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            app:navigationIcon="@drawable/back_icon"
+            app:title="Histórico"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_historic"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/historic_item" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/historico_vazio"
@@ -32,8 +62,6 @@
         android:text="Você não realizou transações \naté o momento"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_historic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

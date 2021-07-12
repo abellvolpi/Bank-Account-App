@@ -28,9 +28,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private val args: MenuFragmentArgs by navArgs()
     lateinit var preferences: SharedPreferences
     private lateinit var binding: FragmentMenuBinding
-    private val navController: NavController by lazy {
-        findNavController()
-    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMenuBinding.inflate(inflater, container, false)
@@ -39,7 +37,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         preferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
@@ -50,46 +47,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             menuRecyclerView.layoutManager = GridLayoutManager(requireContext(),2,LinearLayoutManager.VERTICAL,false)
             menuRecyclerView.setHasFixedSize(true)
 
-
-
-//            buttondepositar.setOnClickListener {
-//
-//                val action = MenuFragmentDirections.actionMenuFragmentToManageMoneyFragment(args.conta,"Digite o Valor do Depósito")
-//                navController.navigate(action)
-//
-//            }
-//
-//            buttonSacar.setOnClickListener {
-//
-//                val action = MenuFragmentDirections.actionMenuFragmentToManageMoneyFragment(args.conta,"Digite o valor do Saque")
-//                navController.navigate(action)
-//
-//            }
-//
-//            buttonTransfer.setOnClickListener{
-//
-//                val action = MenuFragmentDirections.actionMenuFragmentToTransferFragment(args.conta)
-//                navController.navigate(action)
-//            }
-//
-//            buttonhistoric.setOnClickListener {
-//
-//                val action = MenuFragmentDirections.actionMenuFragmentToHistoricFragment(args.conta)
-//                navController.navigate(action)
-//
-//            }
-//
-//
-//
-//            buttonLogout.setOnClickListener {
-//
-//                val editor: SharedPreferences.Editor = preferences.edit()
-//                editor.clear()
-//                editor.apply()
-//
-//                findNavController().navigate(R.id.action_menuFragment_to_loginFragment)
-//
-//            }
         }
 
     }
@@ -102,7 +59,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         menuItens.add(MenuItem(R.drawable.ic_currencies,"Transferir"))
         menuItens.add(MenuItem(R.drawable.ic_historic,"Histórico"))
         menuItens.add(MenuItem(R.drawable.ic_logout,"Logout"))
-
 
         return menuItens
 

@@ -33,6 +33,11 @@ class HistoricFragment : Fragment(R.layout.fragment_historic) {
 
         with(binding) {
 
+
+            toolbarHistoric.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+
             if(HistoricManager.lerCsvHistorico(args.conta.accountNumber)==null){
                 historicoVazio.visibility = View.VISIBLE
                 recyclerView.visibility = View.GONE

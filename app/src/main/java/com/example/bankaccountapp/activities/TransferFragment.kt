@@ -39,6 +39,11 @@ class TransferFragment : Fragment(R.layout.fragment_transfer) {
 
         with(binding) {
 
+            toolbarTransfer.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+
+
             saldoAtual.text = "Seu saldo Atual é de R$ ${balanceFormated(args.conta.balance)}"
 
             transfermoneyValue.addTextChangedListener(object :

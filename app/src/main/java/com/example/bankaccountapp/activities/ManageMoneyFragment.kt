@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,7 +24,6 @@ import java.util.*
 class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
     private val args: ManageMoneyFragmentArgs by navArgs()
-
     private lateinit var binding: FragmentManageMoneyBinding
 
 
@@ -42,6 +42,16 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
 
         with(binding) {
+
+
+            toolbarManagemoney.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+
+            when (mensagem) {
+                "Digite o Valor do Depósito" -> toolbarManagemoney.title = "Depósito"
+                "Digite o valor do Saque" -> toolbarManagemoney.title = "Saque"
+            }
 
             managemoneyText.text = mensagem
             saldoAtual.text = "Seu saldo atual é de R$ ${balanceFormated(account.balance)}"

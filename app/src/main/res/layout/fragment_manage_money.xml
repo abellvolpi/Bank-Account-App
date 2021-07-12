@@ -7,70 +7,106 @@
     tools:context=".activities.ManageMoneyFragment">
 
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_managemoney"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <TextView
-            android:id="@+id/managemoney_text"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_managemoney"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/managemoney_text"
-            android:textSize="20dp" />
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            app:navigationIcon="@drawable/back_icon"
+            app:title="Depósito"
+            app:titleTextColor="@color/white"/>
 
 
-        <EditText
-            android:id="@+id/managemoney_valor"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="30dp"
-            android:inputType="numberDecimal" />
 
-        <TextView
-            android:id="@+id/saldo_atual"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="Seu saldo atual é de: R$ "
-            android:textSize="15dp" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_managemoney">
 
 
         <LinearLayout
-            android:id="@+id/managemoney_confirm"
-            android:layout_width="200dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/layout_button"
-            android:clickable="true"
-            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="vertical">
+
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/managemoney_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Confirmar"
+                android:text="@string/managemoney_text"
+                android:textSize="20dp" />
+
+
+            <EditText
+                android:id="@+id/managemoney_valor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="30dp"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/saldo_atual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="Seu saldo atual é de: R$ "
+                android:textSize="15dp" />
+
+
+            <LinearLayout
+                android:id="@+id/managemoney_confirm"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/layout_button"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Confirmar"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

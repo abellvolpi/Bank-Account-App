@@ -58,6 +58,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         menuItens.add(MenuItem(R.drawable.ic_coinhand,"Sacar"))
         menuItens.add(MenuItem(R.drawable.ic_currencies,"Transferir"))
         menuItens.add(MenuItem(R.drawable.ic_historic,"Histórico"))
+        menuItens.add(MenuItem(R.drawable.ic_services,"Serviços"))
+        menuItens.add(MenuItem(R.drawable.ic_shield,"Privacidade"))
         menuItens.add(MenuItem(R.drawable.ic_logout,"Logout"))
 
         return menuItens

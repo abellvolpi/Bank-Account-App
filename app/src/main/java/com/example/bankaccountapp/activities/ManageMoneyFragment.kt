@@ -17,6 +17,7 @@ import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.AccountManager.escreverCsv
 import com.example.bankaccountapp.utils.balanceFormated
 import com.example.bankaccountapp.utils.hideKeyboard
+import com.example.bankaccountapp.utils.hideSoftKeyboard
 import java.io.File
 import java.io.FileWriter
 import java.text.NumberFormat
@@ -42,7 +43,15 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
         var account = args.conta
 
 
+
+
+
         with(binding) {
+
+            constraintLayoutManageMoney.setOnClickListener {
+                activity?.hideSoftKeyboard()
+
+            }
 
 
             toolbarManagemoney.setNavigationOnClickListener {

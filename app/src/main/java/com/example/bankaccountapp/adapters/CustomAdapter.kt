@@ -52,6 +52,7 @@ class CustomAdapter(private val historico: ArrayList<Historic>) : RecyclerView.A
         viewHolder.data.text = formatDateToHHMMYYYYHHMM(Date(historico[position].data.toLong())).uppercase()
         when (historico[position].operacao) {
 
+            "Transferência enviada" -> viewHolder.image.setImageResource(R.drawable.ic_withdraw)
             "Transferência recebida" -> viewHolder.image.setImageResource(R.drawable.ic_deposit)
             "Saque" -> viewHolder.image.setImageResource(R.drawable.ic_coinhand)
             "Depósito" -> viewHolder.image.setImageResource(R.drawable.ic_money)

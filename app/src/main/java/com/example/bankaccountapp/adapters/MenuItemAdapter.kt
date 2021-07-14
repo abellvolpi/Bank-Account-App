@@ -55,6 +55,8 @@ class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<Men
                         it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToLoginFragment())
                         it.context.getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE).edit().clear().apply()
                     }
+                    "Serviços"->
+                        it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToTicTacToeFragment())
                 }
             }
         }

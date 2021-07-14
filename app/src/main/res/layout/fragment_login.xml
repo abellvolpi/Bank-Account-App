@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -10,31 +11,24 @@
     tools:context=".activities.LoginFragment">
 
 
-
-
     <LinearLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingVertical="40dp"
-        >
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_marginBottom="30dp"
-            android:src="@mipmap/ic_money"
-
-            />
-
+            android:src="@drawable/ic_money"/>
 
 
         <EditText
@@ -55,8 +49,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="30dp"
             android:hint="password"
-            android:inputType="textPassword"
-            />
+            android:inputType="textPassword" />
 
 
         <LinearLayout
@@ -93,12 +86,12 @@
             android:id="@+id/button_newAccount"
             android:layout_width="200dp"
             android:layout_height="35dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/layout_button"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:orientation="horizontal">
 
 
             <TextView
@@ -121,8 +114,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

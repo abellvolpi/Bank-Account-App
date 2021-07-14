@@ -61,6 +61,9 @@
             app:exitAnim="@anim/exit_to_right"
             app:popEnterAnim="@anim/enter_from_right"
             app:popExitAnim="@anim/exit_to_left" />
+        <action
+            android:id="@+id/action_menuFragment_to_ticTacToeFragment"
+            app:destination="@id/ticTacToeFragment" />
 
     </fragment>
 
@@ -112,6 +115,11 @@
             android:name="conta"
             app:argType="com.example.bankaccountapp.models.Account" />
     </fragment>
+    <fragment
+        android:id="@+id/ticTacToeFragment"
+        android:name="com.example.bankaccountapp.activities.TicTacToeFragment"
+        android:label="fragment_tic_tac_toe"
+        tools:layout="@layout/fragment_tic_tac_toe" />
 
 
 </navigation>

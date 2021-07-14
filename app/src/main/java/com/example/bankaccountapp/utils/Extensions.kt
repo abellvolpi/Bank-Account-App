@@ -1,6 +1,8 @@
 package com.example.bankaccountapp.utils
 
+import android.app.Activity
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import java.security.MessageDigest
@@ -30,4 +32,9 @@ fun formatDateToHHMMYYYYHHMM(date: Date): String{
 fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
+}
+fun Activity.hideSoftKeyboard(){
+    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+        hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
 }

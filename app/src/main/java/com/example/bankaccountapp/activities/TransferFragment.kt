@@ -15,6 +15,7 @@ import com.example.bankaccountapp.models.Account
 import com.example.bankaccountapp.databinding.FragmentTransferBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.balanceFormated
+import com.example.bankaccountapp.utils.hideSoftKeyboard
 import java.io.File
 import java.io.FileWriter
 import java.text.NumberFormat
@@ -41,6 +42,11 @@ class TransferFragment : Fragment(R.layout.fragment_transfer) {
 
             toolbarTransfer.setNavigationOnClickListener {
                 activity?.onBackPressed()
+            }
+
+            constraintLayoutTransfer.setOnClickListener {
+                activity?.hideSoftKeyboard()
+
             }
 
 

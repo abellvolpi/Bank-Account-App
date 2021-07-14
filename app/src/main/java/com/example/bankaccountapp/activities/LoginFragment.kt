@@ -16,6 +16,7 @@ import com.example.bankaccountapp.R
 import com.example.bankaccountapp.models.Account
 import com.example.bankaccountapp.databinding.FragmentLoginBinding
 import com.example.bankaccountapp.utils.AccountManager
+import com.example.bankaccountapp.utils.hideSoftKeyboard
 import com.example.bankaccountapp.utils.toSHA256
 import java.io.File
 import java.io.FileWriter
@@ -50,9 +51,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         with(binding) {
 
+
             sharedPreferences = requireContext().getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE)
 
-            val file = File(activity?.applicationContext?.cacheDir,"accounts.csv") // ou requireContext().cachedir
+            val file = File(activity?.applicationContext?.cacheDir, "accounts.csv") // ou requireContext().cachedir
             val fileWriter = FileWriter(file, true)
             fileWriter.close()
 
@@ -103,6 +105,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 navController.navigate(R.id.action_loginFragment_to_newAccountFragment)
 
             }
+
+            constraintLayoutLogin.setOnClickListener {
+                activity?.hideSoftKeyboard()
+
+            }
+
+
         }
     }
 

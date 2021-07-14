@@ -14,6 +14,7 @@ import com.example.bankaccountapp.models.CurrentAccount
 import com.example.bankaccountapp.models.SavingsAccount
 import com.example.bankaccountapp.databinding.FragmentNewAccountBinding
 import com.example.bankaccountapp.utils.AccountManager
+import com.example.bankaccountapp.utils.hideSoftKeyboard
 import com.example.bankaccountapp.utils.toSHA256
 import java.text.NumberFormat
 import java.util.*
@@ -36,6 +37,7 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+
 
             saldoInicial.addTextChangedListener(object :
                 TextWatcher { // assiste enquanto o usuário digita
@@ -71,7 +73,14 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
             })
 
 
+            toolbarNewAccount.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
 
+            constraintLayoutNewAccount.setOnClickListener {
+                activity?.hideSoftKeyboard()
+
+            }
 
             buttonCreateAccount.setOnClickListener {
 
@@ -129,13 +138,12 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
                                     saldo.filter { it.isDigit() }.toLong()
                                 )
                             )
-//                            replaceFragment(LoginFragment(), R.id.fragment_container_view)
-
                             findNavController().popBackStack()
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -143,12 +151,12 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
     private fun newAccountNumber(): Int {
         var maior = 0
         val contas = AccountManager.lerCsv()
-        contas.forEach{
-            if(it.accountNumber>maior){
+        contas.forEach {
+            if (it.accountNumber > maior) {
                 maior = it.accountNumber
             }
         }
-        return maior+1
+        return maior + 1
     }
 
 

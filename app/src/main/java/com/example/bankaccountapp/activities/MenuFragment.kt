@@ -7,12 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.adapters.MenuItemAdapter
 
@@ -54,7 +51,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
         var menuItens: ArrayList<MenuItem> = ArrayList()
 
-        menuItens.add(MenuItem(R.drawable.ic_money,"Depositar"))
+        menuItens.add(MenuItem(R.drawable.ic_money_logo,"Depositar"))
         menuItens.add(MenuItem(R.drawable.ic_coinhand,"Sacar"))
         menuItens.add(MenuItem(R.drawable.ic_currencies,"Transferir"))
         menuItens.add(MenuItem(R.drawable.ic_historic,"Histórico"))

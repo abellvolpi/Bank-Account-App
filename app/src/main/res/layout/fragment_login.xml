@@ -28,7 +28,7 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/ic_money"/>
+            android:src="@drawable/ic_money_logo"/>
 
 
         <EditText

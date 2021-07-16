@@ -50,7 +50,6 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
             constraintLayoutManageMoney.setOnClickListener {
                 activity?.hideSoftKeyboard()
-
             }
 
             toolbarManagemoney.setNavigationOnClickListener {

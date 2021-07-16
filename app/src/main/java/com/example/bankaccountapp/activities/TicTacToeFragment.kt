@@ -18,6 +18,7 @@ import com.example.bankaccountapp.databinding.FragmentTicTacToeBinding
 import com.example.bankaccountapp.tictactoe.Board
 import com.example.bankaccountapp.tictactoe.Cell
 import com.example.bankaccountapp.utils.AccountManager
+import com.google.android.material.snackbar.Snackbar
 import java.text.FieldPosition
 import kotlin.random.Random
 
@@ -31,7 +32,6 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
     private val args: TicTacToeFragmentArgs by navArgs()
 
     var board = Board()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,16 +59,17 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
                 activity?.onBackPressed()
             }
 
-            restartButton.setOnClickListener {
-                args.conta.balance -= 100000
-                AccountManager.escreverCsv()
-                board = Board()
-                whoWon.text = ""
-                mapBoardToUi()
-            }
+//            restartButton.setOnClickListener {
+//                args.conta.balance -= 100000
+//                AccountManager.escreverCsv()
+//                board = Board()
+//                whoWon.text = ""
+//                mapBoardToUi()
+//            }
 
         }
     }
+
 
 
     private fun mapBoardToUi() {
@@ -112,9 +113,16 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
                 mapBoardToUi() //repassa o jogo da velha interno para a interface
             }
             when {
-                board.computerWon() -> binding.whoWon.text = "Computer Won"
+                board.computerWon() -> {
+
+                    view?.let { showSnack(it) }
+                    binding.whoWon.text = "Computer Won"
+
+                }
                 board.playerWon() -> binding.whoWon.text = "This will never happen"
+
                 board.gameOver() -> {
+                    view?.let { showSnack(it) }
                     binding.whoWon.text = "Game Tied"
                     args.conta.balance += 100000
                     AccountManager.escreverCsv()
@@ -145,38 +153,16 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
                 boardCells[i][j]?.setOnClickListener(CellClickListener(i, j))
             }
         }
-
+    }
+    fun showSnack(view: View){
+        val snackbar = Snackbar.make(view,"Fim de Jogo",Snackbar.LENGTH_INDEFINITE).setAction("Restart"){
+            args.conta.balance -= 100000
+            AccountManager.escreverCsv()
+            board = Board()
+            binding.whoWon.text = ""
+            mapBoardToUi()
+        }
+        snackbar.show()
 
     }
-
 }
-
-
-//fun checkWin(): Boolean {
-//
-//    if (btn1.text == btn2.text && btn2.text == btn3.text && btn1.text.isNotEmpty()) { //primeira linha
-//        return true
-//    } else if (btn4.text == btn5.text && btn5.text == btn6.text && btn4.text.isNotEmpty()) { //segunda linha
-//        return true
-//    } else if (btn7.text == btn8.text && btn8.text == btn9.text && btn7.text.isNotEmpty()) { //terceira linha
-//        return true
-//    } else if (btn1.text == btn4.text && btn4.text == btn7.text && btn1.text.isNotEmpty()) { //primeira coluna
-//        return true
-//    } else if (btn2.text == btn5.text && btn5.text == btn8.text && btn2.text.isNotEmpty()) { //segunda coluna
-//        return true
-//    } else if (btn3.text == btn6.text && btn6.text == btn9.text && btn3.text.isNotEmpty()) { //terceira coluna
-//        return true
-//    }else if (btn1.text == btn5.text && btn5.text == btn9.text && btn1.text.isNotEmpty()) { //primeira diagonal
-//        return true
-//    } else if (btn3.text == btn5.text && btn5.text == btn7.text && btn3.text.isNotEmpty()) { //segunda diagonal
-//        return true
-//    }
-//    return false
-//}
-//
-//if(checkWin()==false){
-//    Toast.makeText(requireContext(),"teste",Toast.LENGTH_SHORT)
-//
-//}
-//else{
-//}

@@ -1,18 +1,16 @@
 package com.example.bankaccountapp.adapters
 
+import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.activities.MenuFragmentArgs
 import com.example.bankaccountapp.activities.MenuFragmentDirections
-import com.example.bankaccountapp.databinding.FragmentMenuBinding
 import com.example.bankaccountapp.databinding.MenuItensBinding
 import com.example.bankaccountapp.models.MenuItem
 
@@ -55,8 +53,10 @@ class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<Men
                         it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToLoginFragment())
                         it.context.getSharedPreferences("CREDENCIAIS", Context.MODE_PRIVATE).edit().clear().apply()
                     }
-                    "Serviços"->
-                        it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToTicTacToeFragment())
+                    "Serviços" -> {
+                        openDialog(it)
+//                        it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToTicTacToeFragment(args.conta))
+                    }
                 }
             }
         }
@@ -64,6 +64,29 @@ class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<Men
 
     override fun getItemCount(): Int {
         return menuItens.size
+    }
+
+    fun openDialog(view: View){
+
+        var builder = AlertDialog.Builder(context)
+        builder.setView(View.inflate(context, R.layout.dialog_layout, null))
+
+
+        builder.setPositiveButton("ok", DialogInterface.OnClickListener { dialog, which ->
+            run {
+                view.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToTicTacToeFragment(args.conta))
+                dialog.dismiss()
+            }
+        })
+
+        builder.setNegativeButton("cancelar", DialogInterface.OnClickListener() { dialog: DialogInterface?, which: Int ->
+            dialog?.dismiss()
+        })
+
+
+        var alertDialog = builder.create()
+        alertDialog.show()
+
     }
 
 

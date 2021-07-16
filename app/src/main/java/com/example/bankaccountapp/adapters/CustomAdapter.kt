@@ -55,7 +55,7 @@ class CustomAdapter(private val historico: ArrayList<Historic>) : RecyclerView.A
             "Transferência enviada" -> viewHolder.image.setImageResource(R.drawable.ic_withdraw)
             "Transferência recebida" -> viewHolder.image.setImageResource(R.drawable.ic_deposit)
             "Saque" -> viewHolder.image.setImageResource(R.drawable.ic_coinhand)
-            "Depósito" -> viewHolder.image.setImageResource(R.drawable.ic_money_logo)
+            "Depósito" -> viewHolder.image.setImageResource(R.drawable.ic_moneypack)
 
         }
     }

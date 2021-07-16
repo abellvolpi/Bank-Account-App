@@ -14,7 +14,6 @@
             android:id="@+id/action_loginFragment_to_menuFragment"
             app:destination="@id/menuFragment"
             app:enterAnim="@anim/enter_from_left"
-
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
         <action
@@ -25,6 +24,7 @@
             app:popEnterAnim="@anim/enter_from_bottom"
             app:popExitAnim="@anim/exit_to_top" />
     </fragment>
+
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.bankaccountapp.activities.MenuFragment"
@@ -43,7 +43,7 @@
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popUpTo="@id/menuFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_menuFragment_to_transferFragment"
             app:destination="@id/transferFragment"
@@ -63,7 +63,11 @@
             app:popExitAnim="@anim/exit_to_left" />
         <action
             android:id="@+id/action_menuFragment_to_ticTacToeFragment"
-            app:destination="@id/ticTacToeFragment" />
+            app:destination="@id/ticTacToeFragment"
+            app:enterAnim="@anim/enter_from_left"
+            app:exitAnim="@anim/exit_to_right"
+            app:popEnterAnim="@anim/enter_from_right"
+            app:popExitAnim="@anim/exit_to_left" />
 
     </fragment>
 
@@ -119,7 +123,10 @@
         android:id="@+id/ticTacToeFragment"
         android:name="com.example.bankaccountapp.activities.TicTacToeFragment"
         android:label="fragment_tic_tac_toe"
-        tools:layout="@layout/fragment_tic_tac_toe" />
-
+        tools:layout="@layout/fragment_tic_tac_toe">
+        <argument
+            android:name="conta"
+            app:argType="com.example.bankaccountapp.models.Account" />
+    </fragment>
 
 </navigation>

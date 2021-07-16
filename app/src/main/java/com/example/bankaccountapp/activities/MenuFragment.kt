@@ -51,7 +51,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
         var menuItens: ArrayList<MenuItem> = ArrayList()
 
-        menuItens.add(MenuItem(R.drawable.ic_money_logo,"Depositar"))
+        menuItens.add(MenuItem(R.drawable.ic_moneypack,"Depositar"))
         menuItens.add(MenuItem(R.drawable.ic_coinhand,"Sacar"))
         menuItens.add(MenuItem(R.drawable.ic_currencies,"Transferir"))
         menuItens.add(MenuItem(R.drawable.ic_historic,"Histórico"))

@@ -11,10 +11,13 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import com.example.bankaccountapp.R
 import com.example.bankaccountapp.databinding.FragmentTicTacToeBinding
 import com.example.bankaccountapp.tictactoe.Board
 import com.example.bankaccountapp.tictactoe.Cell
+import com.example.bankaccountapp.utils.AccountManager
 import java.text.FieldPosition
 import kotlin.random.Random
 
@@ -25,7 +28,11 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
 
     private lateinit var binding: FragmentTicTacToeBinding
 
+    private val args: TicTacToeFragmentArgs by navArgs()
+
     var board = Board()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +46,27 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        args.conta.balance -= 100000
+        AccountManager.escreverCsv()
+
+
         with(binding) {
 
             loadBoard()
 
+
+            toolbarTictactoe.setNavigationOnClickListener {
+                activity?.onBackPressed()
+            }
+
             restartButton.setOnClickListener {
+                args.conta.balance -= 100000
+                AccountManager.escreverCsv()
                 board = Board()
                 whoWon.text = ""
-
                 mapBoardToUi()
             }
+
         }
     }
 
@@ -65,6 +83,7 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
                         boardCells[i][j]?.setImageResource(R.drawable.ic_x)
                         boardCells[i][j]?.isEnabled = false
                     }
+                    //servirá para limpar o board após o restart
                     else -> {
                         boardCells[i][j]?.setImageResource(0)
                         boardCells[i][j]?.isEnabled = true
@@ -94,8 +113,12 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
             }
             when {
                 board.computerWon() -> binding.whoWon.text = "Computer Won"
-                board.playerWon() -> binding.whoWon.text = "Player Won"
-                board.gameOver() -> binding.whoWon.text = "Game Tied"
+                board.playerWon() -> binding.whoWon.text = "This will never happen"
+                board.gameOver() -> {
+                    binding.whoWon.text = "Game Tied"
+                    args.conta.balance += 100000
+                    AccountManager.escreverCsv()
+                }
             }
         }
     }

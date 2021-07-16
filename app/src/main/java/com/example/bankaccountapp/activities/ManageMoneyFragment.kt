@@ -53,7 +53,6 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
 
             }
 
-
             toolbarManagemoney.setNavigationOnClickListener {
                 activity?.onBackPressed()
             }

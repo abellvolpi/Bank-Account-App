@@ -31,6 +31,8 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
 
     private val args: TicTacToeFragmentArgs by navArgs()
 
+    private var snackbar: Snackbar? = null
+
     var board = Board()
 
 
@@ -49,27 +51,22 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
         args.conta.balance -= 100000
         AccountManager.escreverCsv()
 
-
         with(binding) {
 
             loadBoard()
 
-
             toolbarTictactoe.setNavigationOnClickListener {
                 activity?.onBackPressed()
             }
-
-//            restartButton.setOnClickListener {
-//                args.conta.balance -= 100000
-//                AccountManager.escreverCsv()
-//                board = Board()
-//                whoWon.text = ""
-//                mapBoardToUi()
-//            }
-
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        snackbar?.let {
+            it.dismiss()
+        }
+    }
 
 
     private fun mapBoardToUi() {
@@ -154,15 +151,16 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
             }
         }
     }
-    fun showSnack(view: View){
-        val snackbar = Snackbar.make(view,"Fim de Jogo",Snackbar.LENGTH_INDEFINITE).setAction("Restart"){
+
+    fun showSnack(view: View) {
+        snackbar = Snackbar.make(view, "Fim de Jogo", Snackbar.LENGTH_INDEFINITE).setAction("Restart") {
             args.conta.balance -= 100000
             AccountManager.escreverCsv()
             board = Board()
             binding.whoWon.text = ""
             mapBoardToUi()
         }
-        snackbar.show()
-
+        snackbar?.show()
     }
+
 }

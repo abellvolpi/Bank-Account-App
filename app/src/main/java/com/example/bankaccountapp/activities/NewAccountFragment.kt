@@ -109,7 +109,7 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
                         } else {
                             AccountManager.adicionarConta(
                                 CurrentAccount(
-                                    newAccountNumber(),
+                                    AccountManager.newAccountNumber(),
                                     nome,
                                     senha.toSHA256(),
                                     Calendar.getInstance().time,
@@ -131,7 +131,7 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
                         } else {
                             AccountManager.adicionarConta(
                                 SavingsAccount(
-                                    newAccountNumber(),
+                                    AccountManager.newAccountNumber(),
                                     nome,
                                     senha.toSHA256(),
                                     Calendar.getInstance().time,
@@ -148,16 +148,7 @@ class NewAccountFragment : Fragment(R.layout.fragment_new_account) {
     }
 
 
-    private fun newAccountNumber(): Int {
-        var maior = 0
-        val contas = AccountManager.lerCsv()
-        contas.forEach {
-            if (it.accountNumber > maior) {
-                maior = it.accountNumber
-            }
-        }
-        return maior + 1
-    }
+
 
 
 }

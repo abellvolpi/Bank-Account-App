@@ -43,9 +43,6 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
         var account = args.conta
 
 
-
-
-
         with(binding) {
 
             constraintLayoutManageMoney.setOnClickListener {
@@ -84,7 +81,6 @@ class ManageMoneyFragment : Fragment(R.layout.fragment_manage_money) {
                         managemoneyValor.addTextChangedListener(this)
                     }
                 }
-
                 override fun afterTextChanged(s: Editable?) { //depois do texto ser mudado
                 }
             })

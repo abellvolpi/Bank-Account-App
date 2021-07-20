@@ -19,11 +19,18 @@ import com.example.bankaccountapp.tictactoe.Board
 import com.example.bankaccountapp.tictactoe.Cell
 import com.example.bankaccountapp.utils.AccountManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.text.FieldPosition
+import kotlin.coroutines.CoroutineContext
 import kotlin.random.Random
 
 
-class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
+class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe), CoroutineScope {
+
+    override val coroutineContext: CoroutineContext = Dispatchers.Main + Job()
 
     private val boardCells = Array(3) { arrayOfNulls<ImageButton>(3) }
 
@@ -48,6 +55,11 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        launch(Dispatchers.Default) {
+            AccountManager.accountGenerator()
+
+        }
+
         args.conta.balance -= 100000
         AccountManager.escreverCsv()
 
@@ -60,6 +72,7 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe) {
             }
         }
     }
+
 
     override fun onPause() {
         super.onPause()

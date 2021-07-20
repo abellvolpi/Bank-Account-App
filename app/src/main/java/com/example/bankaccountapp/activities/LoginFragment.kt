@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.bankaccountapp.R
@@ -18,14 +19,16 @@ import com.example.bankaccountapp.databinding.FragmentLoginBinding
 import com.example.bankaccountapp.utils.AccountManager
 import com.example.bankaccountapp.utils.hideSoftKeyboard
 import com.example.bankaccountapp.utils.toSHA256
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileWriter
+import kotlin.coroutines.CoroutineContext
 
 const val ACCOUNT = "ACCOUNT"
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_login), CoroutineScope {
 
-
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginBinding
 
@@ -73,45 +76,57 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             }
 
-
             buttonLogin.setOnClickListener {
-                changeState(true)
-                delay {
-                    efetuaLogin(
-                        usernameField.text.toString(),
-                        passwordField.text.toString().toSHA256()
-                    )?.let {
 
+                launch(Dispatchers.IO) {
+                    efetuaLogin(usernameField.text.toString(), passwordField.text.toString().toSHA256())?.let {
                         val editor: SharedPreferences.Editor = sharedPreferences.edit()
                         editor.putString("ID", it.accountNumber.toString())
                         editor.apply()
-
-                        val action = LoginFragmentDirections.actionLoginFragmentToMenuFragment(it)
-                        navController.navigate(action)
-//                        navController.navigate(R.id.action_loginFragment_to_menuFragment, bundleOf(Pair(ACCOUNT, it)))
-
-
+                        withContext(Dispatchers.Main) {
+                            navController.navigate(LoginFragmentDirections.actionLoginFragmentToMenuFragment(it))
+                        }
                     } ?: run {
-
                         loginInvalido()
-                        changeState(false)
-
                     }
+
                 }
             }
 
+
+//            buttonLogin.setOnClickListener {
+//                changeState(true)
+//                delay {
+//                    efetuaLogin(
+//                        usernameField.text.toString(),
+//                        passwordField.text.toString().toSHA256()
+//                    )?.let {
+//
+//                        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//                        editor.putString("ID", it.accountNumber.toString())
+//                        editor.apply()
+//
+//                        val action = LoginFragmentDirections.actionLoginFragmentToMenuFragment(it)
+//                        navController.navigate(action)
+////                        navController.navigate(R.id.action_loginFragment_to_menuFragment, bundleOf(Pair(ACCOUNT, it)))
+//
+//
+//                    } ?: run {
+//
+//                        loginInvalido()
+//                        changeState(false)
+//
+//                    }
+//                }
+//            }
+
             buttonNewAccount.setOnClickListener {
-
                 navController.navigate(R.id.action_loginFragment_to_newAccountFragment)
-
             }
 
             constraintLayoutLogin.setOnClickListener {
                 activity?.hideSoftKeyboard()
-
             }
-
-
         }
     }
 
@@ -140,26 +155,38 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
 
-    private fun loginInvalido() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Erro")
-        builder.setMessage("Usuário ou senha inválidos")
-        builder.setNeutralButton("OK") { _, _ -> }
-        val caixa_dialogo: AlertDialog = builder.create()
-        caixa_dialogo.show()
-
+    private suspend fun loginInvalido() {
+        withContext(Dispatchers.Main) {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Erro")
+            builder.setMessage("Usuário ou senha inválidos")
+            builder.setNeutralButton("OK") { _, _ -> }
+            val caixa_dialogo: AlertDialog = builder.create()
+            caixa_dialogo.show()
+        }
     }
 
 
-    private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
+//    private fun efetuaLogin(user_informed: String, password_informed: String): Account? {
+//        val contas = AccountManager.lerCsv()
+//        contas.forEach {
+//            if (it.ownersName == user_informed && it.password == password_informed) {
+//                return it
+//            }
+//        }
+//        return null
+//    }
+
+    private suspend fun efetuaLogin(user_informed: String, password_informed: String) = withContext(Dispatchers.IO){
         val contas = AccountManager.lerCsv()
         contas.forEach {
             if (it.ownersName == user_informed && it.password == password_informed) {
-                return it
+                return@withContext it
             }
         }
-        return null
+        null
     }
+
 
 
 }

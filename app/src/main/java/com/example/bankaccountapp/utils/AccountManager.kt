@@ -1,5 +1,6 @@
 package com.example.bankaccountapp.utils
 
+import com.example.bankaccountapp.activities.NewAccountFragment
 import com.example.bankaccountapp.models.Account
 import com.example.bankaccountapp.models.CurrentAccount
 import com.example.bankaccountapp.models.SavingsAccount
@@ -98,8 +99,30 @@ object AccountManager {
         return false
     }
 
+    fun accountGenerator() {
 
 
+        for (i in 1..10000) {
+
+            if (i % 2 == 0) {
+                adicionarConta(CurrentAccount(newAccountNumber(),"Nome${i}", i.toString().toSHA256(),Calendar.getInstance().time))
+            } else {
+                adicionarConta(SavingsAccount(newAccountNumber(),"Nome${i}",i.toString().toSHA256(),Calendar.getInstance().time))
+            }
+        }
+    }
+
+
+    fun newAccountNumber(): Int {
+        var maior = 0
+        val contas = AccountManager.lerCsv()
+        contas.forEach {
+            if (it.accountNumber > maior) {
+                maior = it.accountNumber
+            }
+        }
+        return maior + 1
+    }
 
 
 }

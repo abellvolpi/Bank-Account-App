@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -23,7 +24,16 @@
             android:background="@color/green"
             app:navigationIcon="@drawable/back_icon"
             app:title="Menu"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white">
+
+            <ProgressBar
+                android:id="@+id/progress_menu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

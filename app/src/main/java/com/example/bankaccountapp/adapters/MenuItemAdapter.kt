@@ -6,17 +6,26 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bankaccountapp.R
+import com.example.bankaccountapp.activities.MenuFragment
 import com.example.bankaccountapp.activities.MenuFragmentArgs
 import com.example.bankaccountapp.activities.MenuFragmentDirections
 import com.example.bankaccountapp.databinding.MenuItensBinding
 import com.example.bankaccountapp.models.MenuItem
+import com.example.bankaccountapp.utils.AccountManager
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<MenuItem>, var args: MenuFragmentArgs) : RecyclerView.Adapter<MenuItemAdapter.ItemHolder>() {
+class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<MenuItem>, var args: MenuFragmentArgs) : RecyclerView.Adapter<MenuItemAdapter.ItemHolder>(),
+    CoroutineScope {
+
+    override val coroutineContext: CoroutineContext = Dispatchers.Main + Job()
 
     private lateinit var binding: MenuItensBinding
+
 
     class ItemHolder(itemView: MenuItensBinding) : RecyclerView.ViewHolder(itemView.root) {
 
@@ -30,6 +39,7 @@ class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<Men
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+
 
         var currentItem: MenuItem = menuItens.get(position)
 
@@ -56,6 +66,17 @@ class MenuItemAdapter(var context: Context, private val menuItens: ArrayList<Men
                     "Serviços" -> {
                         openDialog(it)
 //                        it.findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToTicTacToeFragment(args.conta))
+                    }
+                    "Gerador de Contas" ->{
+                        launch(Dispatchers.Main) {
+                             val result = async(Dispatchers.IO) {
+                                 AccountManager.accountGenerator()
+                             }
+                            progressMenu.visibility = View.VISIBLE
+                            result.await()
+                            progressMenu.visibility = View.GONE
+                        }
+
                     }
                 }
             }

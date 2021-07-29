@@ -25,15 +25,18 @@ fun balanceFormated(long: Long): String {
     val formatter = DecimalFormat("###,###,##.##")
     return formatter.format(long).toString()
 }
-fun formatDateToHHMMYYYYHHMM(date: Date): String{
+
+fun formatDateToHHMMYYYYHHMM(date: Date): String {
     val fmt = SimpleDateFormat("dd MMM")
     return fmt.format(date)
 }
+
 fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
-fun Activity.hideSoftKeyboard(){
+
+fun Activity.hideSoftKeyboard() {
     (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
         hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }

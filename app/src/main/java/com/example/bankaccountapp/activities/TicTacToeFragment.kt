@@ -55,10 +55,6 @@ class TicTacToeFragment : Fragment(R.layout.fragment_tic_tac_toe), CoroutineScop
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        launch(Dispatchers.Default) {
-            AccountManager.accountGenerator()
-
-        }
 
         args.conta.balance -= 100000
         AccountManager.escreverCsv()

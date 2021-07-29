@@ -36,18 +36,11 @@ class LoginFragment : Fragment(R.layout.fragment_login), CoroutineScope {
         findNavController()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
 
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -89,7 +82,6 @@ class LoginFragment : Fragment(R.layout.fragment_login), CoroutineScope {
                     } ?: run {
                         loginInvalido()
                     }
-
                 }
             }
 

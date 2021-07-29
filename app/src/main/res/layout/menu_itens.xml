@@ -8,32 +8,48 @@
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
+        <ProgressBar
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/progress_menu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:indeterminateTint="@color/green"
+            android:visibility="gone" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/menu_icons"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="30dp"
-            android:src="@drawable/ic_deposit" />
+        <LinearLayout
 
-        <TextView
-            android:id="@+id/menu_texts"
-            android:layout_width="wrap_content"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:text="Ação"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/menu_icons"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="30dp"
+                android:src="@drawable/ic_deposit" />
 
+            <TextView
+                android:id="@+id/menu_texts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Ação"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

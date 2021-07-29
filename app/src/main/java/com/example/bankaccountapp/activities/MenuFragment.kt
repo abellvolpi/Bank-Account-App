@@ -58,7 +58,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         menuItens.add(MenuItem(R.drawable.ic_services,"Serviços"))
         menuItens.add(MenuItem(R.drawable.ic_shield,"Privacidade"))
         menuItens.add(MenuItem(R.drawable.ic_logout,"Logout"))
-
+        menuItens.add(MenuItem(R.drawable.ic_accountgenerator_icon,"Gerador de Contas"))
         return menuItens
 
     }

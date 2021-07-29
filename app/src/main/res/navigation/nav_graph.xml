@@ -68,6 +68,9 @@
             app:exitAnim="@anim/exit_to_right"
             app:popEnterAnim="@anim/enter_from_right"
             app:popExitAnim="@anim/exit_to_left" />
+        <action
+            android:id="@+id/action_menuFragment_to_generatorFragment"
+            app:destination="@id/generatorFragment" />
 
     </fragment>
 
@@ -128,5 +131,10 @@
             android:name="conta"
             app:argType="com.example.bankaccountapp.models.Account" />
     </fragment>
+    <fragment
+        android:id="@+id/generatorFragment"
+        android:name="com.example.bankaccountapp.activities.GeneratorFragment"
+        android:label="fragment_generator"
+        tools:layout="@layout/fragment_generator" />
 
 </navigation>
